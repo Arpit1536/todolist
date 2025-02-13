@@ -7,6 +7,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
@@ -59,6 +61,22 @@ fun ShowTasks(navController: NavHostController, taskText: String) {
         ) {
             //  itemsIndexed is used to get both the index and the task
             itemsIndexed(task) { index, task ->
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 6.dp)
+                        .clickable {
+                            if (selectedTasks.contains(index)) {
+                                selectedTasks.remove(index)
+                            } else {
+                                selectedTasks.add(index)
+                            }
+                        },
+                    colors = CardDefaults.cardColors(
+                        containerColor = if (selectedTasks.contains(index)) Color(0xFFDFFFD6) else Color.White
+                    ),
+                    elevation = CardDefaults.cardElevation(4.dp)
+                ) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -96,4 +114,4 @@ fun ShowTasks(navController: NavHostController, taskText: String) {
             }
         }
 
-}}
+}}}
